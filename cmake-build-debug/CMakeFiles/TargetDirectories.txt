@@ -1,0 +1,3 @@
+C:/Users/arne/Documents/2022-2023/chess/cmake-build-debug/CMakeFiles/chess.dir
+C:/Users/arne/Documents/2022-2023/chess/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/arne/Documents/2022-2023/chess/cmake-build-debug/CMakeFiles/rebuild_cache.dir
