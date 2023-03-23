@@ -1,18 +1,16 @@
 #ifndef CHESS_BITBOARDHANDLER_H
 #define CHESS_BITBOARDHANDLER_H
 
-#include <boost/multiprecision/cpp_int.hpp>
-#include "iostream"
-
-using namespace boost::multiprecision;
-
-typedef int128_t bitboard;
+#include "defs.h"
+#include <iostream>
 
 class BitboardHandler {
 public:
     static void printBitboard(const bitboard &b, std::ostream &os, const bool &chessboard);
     static bool isOne(const bitboard &b, const int &row, const int &col, const bool &chessboard);
-    static void setOne(bitboard &b, const int &row, const int &col, const bool &chessboard);
+    static void add(bitboard &b, const int &row, const int &col, const bool &chessboard);
+    static void del(bitboard &b, const int &row, const int &col, const bool &chessboard);
+    static void maskBoard(bitboard &b);
 };
 
 

@@ -11,8 +11,9 @@ void BitboardHandler::printBitboard(const bitboard &b, std::ostream &os, const b
                 os << "0";
             }
         }
-        os << "\n";
+        os << std::endl;
     }
+    os << std::endl;
 }
 
 bool BitboardHandler::isOne(const bitboard &b, const int &row, const int &col, const bool &chessboard) {
@@ -20,7 +21,18 @@ bool BitboardHandler::isOne(const bitboard &b, const int &row, const int &col, c
     return static_cast<bool>(b & ((bitboard) 1) << index);
 }
 
-void BitboardHandler::setOne(bitboard &b, const int &row, const int &col, const bool &chessboard) {
+void BitboardHandler::add(bitboard &b, const int &row, const int &col, const bool &chessboard) {
     int index = (chessboard) ? (row*10+col)+21 : row*10+col;
     b |= ((bitboard) 1) << index;
 }
+
+void BitboardHandler::del(bitboard &b, const int &row, const int &col, const bool &chessboard) {
+    int index = (chessboard) ? (row*10+col)+21 : row*10+col;
+    b &= ~((bitboard) 1) << index;
+}
+
+void BitboardHandler::maskBoard(bitboard &b) {
+    b = cpp_int("631966574893838704558473216000").convert_to<bitboard>() & b;
+}
+
+

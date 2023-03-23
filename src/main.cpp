@@ -1,52 +1,10 @@
 #include "Chess.h"
-#include "Pieces/ChessPiece.h"
-
-#include "Pieces/Rook.h"
-#include "Pieces/Bishop.h"
-#include "Pieces/Knight.h"
-#include "Pieces/Pawn.h"
-#include "Pieces/Queen.h"
-#include "Pieces/King.h"
-
-#include "defs.h"
-#include "iostream"
-#include "string"
-#include "array"
-
-#include "BitboardHandler.h"
-
-void testPieces() {
-    //Pieceorder {king, queen, rook, bishop, knight, pawn}
-    pieceArray piecePointers = {
-            std::array<ChessPiece*,6> {
-                    new King(black),
-                    new Queen(black),
-                    new Rook(black),
-                    new Bishop(black),
-                    new Knight(black),
-                    new Pawn(black)
-            },
-            {
-                    new King(white),
-                    new Queen(white),
-                    new Rook(white),
-                    new Bishop(white),
-                    new Knight(white),
-                    new Pawn(white)
-            }
-    };
-    std::cout << std::string(*piecePointers[black][queen]) << std::endl;
-}
-
-void testBitboards() {
-    bitboard b;
-    BitboardHandler::setOne(b, 1, 7, true);
-    BitboardHandler::printBitboard(b, std::cout, true);
-    std::cout << std::endl;
-    BitboardHandler::printBitboard(b, std::cout, false);
-}
 
 int main() {
-    testBitboards();
+    Chess c;
+    c.print(std::cout);
+    std::cout << std::endl;
+    c.move(pos(1,0), pos(3,0));
+    c.print(std::cout);
     return 0;
 }
