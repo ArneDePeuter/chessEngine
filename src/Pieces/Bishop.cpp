@@ -1,6 +1,6 @@
 #include "ChessPiece.h"
 
-Bishop::Bishop(Color color) : ChessPiece(color, 'B', "Bishop", 50) {
+Bishop::Bishop(Color color) : ChessPiece(color, 'B', "Bishop", 50, bishop) {
 
 }
 

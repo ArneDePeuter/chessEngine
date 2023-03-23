@@ -1,6 +1,6 @@
 #include "ChessPiece.h"
 
-ChessPiece::ChessPiece(Color color, char character, const std::string &name, const int &value) : color(color) {
+ChessPiece::ChessPiece(Color color, char character, const std::string &name, const int &value, const PieceIndex &index) : color(color), index(index) {
     ChessPiece::name  = (color==white) ? "White " + name : "Black " + name;
     ChessPiece::value = (color==white) ? value : -value;
     ChessPiece::character = (color==white) ? character : char(tolower(character));
@@ -20,3 +20,9 @@ ChessPiece::operator std::string() {
 
     return output;
 }
+
+PieceIndex ChessPiece::getIndex() const {
+    return index;
+}
+
+

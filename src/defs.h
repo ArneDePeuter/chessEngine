@@ -10,7 +10,7 @@ typedef int128_t bitboard;
 typedef std::array<std::array<bitboard,6>,2> bitboardArray;
 
 enum Color {black , white};
-enum PieceOrder {king, queen, rook, bishop, knight, pawn};
+enum PieceIndex {king, queen, rook, bishop, knight, pawn};
 
 class ChessPiece;
 

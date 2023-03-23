@@ -7,6 +7,8 @@ Chess::Chess() {
 }
 
 void Chess::setStartingBoard() {
+    toMove = white;
+
     //kings
     BitboardHandler::add(bitboards[white][king],7,4,true);
     BitboardHandler::add(bitboards[black][king],0,4,true);
@@ -51,38 +53,31 @@ bitboard Chess::getCombinedBoards() const {
 }
 
 bool Chess::move(const pos &from, const pos &to) {
-    bitboard *fromBoard = getBitboardAtPos(from);
-    bitboard *killBoard = getBitboardAtPos(to);
-    if (fromBoard == nullptr) {
-        Logger::writeError(errorStream, "No piece at startLocation");
+    ChessPiece *fromPiece = getPiece(from, toMove);
+
+    if (fromPiece == nullptr) {
+        Logger::writeError(errorStream, "No piece from this color at starting location");
         return false;
     }
+
+    bitboard myMoves = moves[fromPiece->getColor()][fromPiece->getIndex()];
+
+    if (!BitboardHandler::isOne(myMoves, to.first, to.second, true)) {
+        Logger::writeError(errorStream, "Invalid Move");
+        return false;
+    }
+
+    //execute move
+    bitboard *fromBoard = &bitboards[fromPiece->getColor()][fromPiece->getIndex()];
     BitboardHandler::del(*fromBoard, from.first, from.second, true);
     BitboardHandler::add(*fromBoard, to.first, to.second, true);
 
-    if (killBoard != nullptr) BitboardHandler::del(*fromBoard, to.first, to.second, true);
-}
-
-bitboard *Chess::getBitboardAtPos(const pos &p) {
-    for (int color = 0; color < 2; color++) {
-        for (int pieceName = 0; pieceName < 6; pieceName++) {
-            if (BitboardHandler::isOne(bitboards[color][pieceName], p.first, p.second, true)) {
-                return &bitboards[color][pieceName];
-            }
-        }
+    ChessPiece *toPiece = getPiece(to, swapColor(toMove));
+    if (toPiece != nullptr) {
+        bitboard *killboard = &bitboards[toPiece->getColor()][toPiece->getIndex()];
+        BitboardHandler::del(*killboard, to.first, to.second, true);
     }
-    return nullptr;
-}
-
-ChessPiece *Chess::getPiece(const pos &p) const {
-    for (int color = 0; color < 2; color++) {
-        for (int pieceName = 0; pieceName < 6; pieceName++) {
-            if (BitboardHandler::isOne(bitboards[color][pieceName], p.first, p.second, true)) {
-                return piecePointers[color][pieceName];
-            }
-        }
-    }
-    return nullptr;
+    return true;
 }
 
 void Chess::print(std::ostream &os) const {
@@ -101,7 +96,29 @@ void Chess::print(std::ostream &os) const {
 
 void Chess::setAllMoves(const Color &color) {
     for (int pieceName = 0; pieceName < 6; pieceName++) {
-        moves[color][pieceName] = piecePointers[color][pieceName].getMoves(bitboards[color][pieceName]);
+        moves[color][pieceName] = piecePointers[color][pieceName]->getMoves(bitboards[color][pieceName]);
     }
+}
+
+ChessPiece *Chess::getPiece(const pos &p, const Color &c) const {
+    for (int pieceName = 0; pieceName < 6; pieceName++) {
+        if (BitboardHandler::isOne(bitboards[c][pieceName], p.first, p.second, true)) {
+            return piecePointers[c][pieceName];
+        }
+    }
+    return nullptr;
+}
+
+ChessPiece *Chess::getPiece(const pos &p) const {
+    for (Color color : {black, white}) {
+        ChessPiece *piece = this->getPiece(p, color);
+        if (piece!=nullptr) return piece;
+    }
+    return nullptr;
+}
+
+Color Chess::swapColor(const Color &c) {
+    Color result = (c==black) ? white : black;
+    return result;
 }
 

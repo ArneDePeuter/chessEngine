@@ -8,6 +8,8 @@
 #include "Logger.h"
 #include "iostream"
 
+static bitboard UNUSED = 1;
+
 class Chess {
 public:
     Chess(const std::string &FENstring);
@@ -15,10 +17,11 @@ public:
     bool move(const pos &from, const pos &to);
     void print(std::ostream &os) const;
 private:
+    ChessPiece *getPiece(const pos &p, const Color &c) const;
+    static Color swapColor(const Color &c);
+    ChessPiece *getPiece(const pos &p) const;
     void setAllMoves(const Color &color);
     void setStartingBoard();
-    bitboard *getBitboardAtPos(const pos &p);
-    ChessPiece *getPiece(const pos &p) const;
     bitboard getCombinedBoards() const;
     pieceArray piecePointers = {
     std::array<ChessPiece*,6>   {new King(black),new Queen(black),new Rook(black),new Bishop(black),new Knight(black),new Pawn(black)},
@@ -28,6 +31,7 @@ private:
     bitboardArray moves;
 
     std::ostream &errorStream = std::cerr;
+    Color toMove;
 };
 
 

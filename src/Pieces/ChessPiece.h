@@ -6,18 +6,20 @@
 
 class ChessPiece {
 public:
-    ChessPiece(Color color, char character, const std::string &name, const int &value);
+    ChessPiece(Color color, char character, const std::string &name, const int &value, const PieceIndex &index);
 
     virtual bitboard getMoves(const bitboard &pieces) = 0;
 
     explicit operator std::string();
 
+    PieceIndex getIndex() const;
     Color getColor() const;
     char getCharacter() const;
     const std::string &getName() const;
     int getValue() const;
 private:
     Color color;
+    PieceIndex index;
     char character;
     std::string name;
     int value;
