@@ -8,8 +8,6 @@
 #include "Logger.h"
 #include "iostream"
 
-static bitboard UNUSED = 1;
-
 class Chess {
 public:
     Chess(const std::string &FENstring);
