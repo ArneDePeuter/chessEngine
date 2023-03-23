@@ -4,7 +4,7 @@ Chess::Chess(const std::string &FENstring) {}
 
 Chess::Chess() {
     setStartingBoard();
-    setAllMoves(toMove);
+    update();
 }
 
 void Chess::setStartingBoard() {
@@ -66,14 +66,16 @@ bool Chess::move(const pos &from, const pos &to) {
 
     ChessPiece *toPiece = getPiece(to, swapColor(toMove));
     if (toPiece != nullptr) {
-        bitboard *killboard = &bitboards[toPiece->getColor()][toPiece->getIndex()];
-        BitboardHandler::del(*killboard, to.first, to.second, true);
+        bitboard *killBoard = &bitboards[toPiece->getColor()][toPiece->getIndex()];
+        BitboardHandler::del(*killBoard, to.first, to.second, true);
     }
     return true;
 }
 
 void Chess::print(std::ostream &os) const {
+    os << std::endl;
     for (int row = 0; row < 8; row++) {
+        os << 8 - row << " |";
         for (int col = 0; col < 8; col++) {
             ChessPiece* piece = getPiece(pos(row, col));
             if (piece==nullptr) {
@@ -85,14 +87,39 @@ void Chess::print(std::ostream &os) const {
         }
         os << std::endl;
     }
+    os << "  |";
+    for (int i = 0; i < 8; i++) {
+        os << "__";
+    }
+    os << std::endl << "  |";
+    char c = 'a';
+    for (int i = 0; i < 8; i++) {
+        os << c << " ";
+        c++;
+    }
+    os << std::endl;
+    os << std::endl;
+    os << "To Move: " << ((toMove==black) ? "Black" : "White") << std::endl;
+    os << std::endl;
+    os << "Check: " << std::boolalpha << check() << std::endl;
+    os << "Checkmate: " << std::boolalpha << checkmate() << std::endl;
+    os << "Stalemate: " << std::boolalpha << stalemate() << std::endl;
+    os << std::endl;
 }
 
-void Chess::setAllMoves(const Color &color) {
+void Chess::update() {
+    setPinLaser();
+    setKingAttackers();
     for (int pieceName = 0; pieceName < 6; pieceName++) {
-        moves[color][pieceName] = piecePointers[color][pieceName]->getMoves(bitboards[color][pieceName],
-                                                                            getCombinedBoards(color),
-                                                                            getCombinedBoards(swapColor(color)), false);
+        moves[toMove][pieceName] = piecePointers[toMove][pieceName]->getMoves(bitboards[toMove][pieceName]&~pinLaser,
+                                                                            getCombinedBoards(toMove),
+                                                                            getCombinedBoards(swapColor(toMove)), false);
+        if (kingAttackers>((bitboard)0)) {
+            moves[toMove][pieceName] &= kingAttackers;
+        }
     }
+    setAnD();
+    moves[toMove][king] &= ~AnD;
 }
 
 ChessPiece *Chess::getPiece(const pos &p, const Color &c) const {
@@ -125,3 +152,71 @@ bitboard Chess::getCombinedBoards(const Color &color) const {
     return result;
 }
 
+void Chess::setPinLaser() {
+    pinLaser = ((bitboard) 0);
+    bitboard enemySliders = bitboards[swapColor(toMove)][rook] | bitboards[swapColor(toMove)][queen] | bitboards[swapColor(toMove)][bishop];
+    Queen kingQueen = Queen(toMove);
+
+    bitboard pinMask = kingQueen.getMoves(bitboards[toMove][king], getCombinedBoards(toMove), getCombinedBoards(swapColor(toMove)),true);
+
+
+    std::array<int, 8> directions = {
+            FORWARD, BACKWARD, LEFT, RIGHT, FORWARD+LEFT, FORWARD+RIGHT, BACKWARD+LEFT, BACKWARD+RIGHT
+    };
+    bitboard slide;
+    for (int direction : directions) {
+        slide = kingQueen.slideToDir(bitboards[toMove][king], getCombinedBoards(toMove)&~pinMask, getCombinedBoards(swapColor(toMove)), {direction}, false);
+        if (slide&enemySliders) {
+            pinLaser |= slide;
+        }
+    }
+}
+
+void Chess::setAnD() {
+    for (int pieceName = 0; pieceName < 6; pieceName++) {
+        AnD |= piecePointers[swapColor(toMove)][pieceName]->getMoves(bitboards[swapColor(toMove)][pieceName]&pinLaser,
+                                                                              getCombinedBoards(swapColor(toMove)),
+                                                                              getCombinedBoards(toMove), true);
+    }
+}
+
+void Chess::swap() {
+    toMove = swapColor(toMove);
+    update();
+}
+
+bool Chess::check() const {
+    return static_cast<bool>(bitboards[toMove][king]&AnD);
+}
+
+bool Chess::checkmate() const {
+    bool hasMoves=false;
+    for (int pieceIndex = 0; pieceIndex < 6; ++pieceIndex) {
+        hasMoves = hasMoves || moves[toMove][pieceIndex];
+    }
+    return check() && !hasMoves;
+}
+
+bool Chess::stalemate() const {
+    bool hasMoves=false;
+    for (int pieceIndex = 0; pieceIndex < 6; ++pieceIndex) {
+        hasMoves = hasMoves || moves[toMove][pieceIndex];
+    }
+    return !check() && !hasMoves;
+}
+
+void Chess::setKingAttackers() {
+    kingAttackers = (bitboard (0));
+    for (int pieceIndex = 0; pieceIndex < 6; pieceIndex++) {
+        ChessPiece* imitatingKing = piecePointers[toMove][pieceIndex];
+        bitboard attacked = imitatingKing->getMoves(bitboards[toMove][king], getCombinedBoards(toMove), getCombinedBoards(swapColor(toMove)), true);
+        bitboard attackers = bitboards[swapColor(toMove)][pieceIndex] & attacked;
+        if (attackers>((bitboard)0)){
+            kingAttackers |= attackers | (attacked & imitatingKing->getMoves(attackers, getCombinedBoards(swapColor(toMove)), getCombinedBoards(toMove), false));
+        }
+    }
+}
+
+bool Chess::gameOver() {
+    return stalemate() || checkmate();
+}

@@ -6,9 +6,9 @@ Pawn::Pawn(Color color) : ChessPiece(color, 'P', "Pawn", 1, pawn) {
 }
 
 bitboard Pawn::getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) {
-    bitboard moves = getAttackMoves(pieces, myPieces, enemyPieces, AnD);
+    if (AnD) return getAttackMoves(pieces, myPieces, enemyPieces, AnD) & boardMask;
 
-    if (AnD) return moves & boardMask;
+    bitboard moves;
 
     bitboard piecesMask = myPieces|enemyPieces; //cant move onto any piece
 
@@ -17,6 +17,7 @@ bitboard Pawn::getMoves(const bitboard &pieces, const bitboard &myPieces, const 
     moves |= BitboardHandler::shift(moves&doubleMoveMask, sign*FORWARD);
     moves &= ~piecesMask;
 
+    moves |= getAttackMoves(pieces, myPieces, enemyPieces, AnD);
     moves &= boardMask;
     return moves;
 }
@@ -24,6 +25,10 @@ bitboard Pawn::getMoves(const bitboard &pieces, const bitboard &myPieces, const 
 bitboard
 
 Pawn::getAttackMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) {
-    bitboard result;
-    return result;
+    bitboard moves;
+
+    moves |= BitboardHandler::shift(pieces, sign*FORWARD+LEFT);
+    moves |= BitboardHandler::shift(pieces, sign*FORWARD+RIGHT);
+
+    return moves & boardMask & enemyPieces;
 }

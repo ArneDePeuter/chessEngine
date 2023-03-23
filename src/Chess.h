@@ -16,13 +16,21 @@ public:
     Chess();
     bool move(const pos &from, const pos &to);
     void print(std::ostream &os) const;
+    void swap();
+    bool gameOver();
 private:
     ChessPiece *getPiece(const pos &p, const Color &c) const;
     static Color swapColor(const Color &c);
     ChessPiece *getPiece(const pos &p) const;
-    void setAllMoves(const Color &color);
     void setStartingBoard();
     bitboard getCombinedBoards(const Color &color) const;
+    void setPinLaser();
+    void setKingAttackers();
+    void setAnD();
+    void update();
+    bool check() const;
+    bool checkmate() const;
+    bool stalemate() const;
 
     pieceArray piecePointers = {
     std::array<ChessPiece*,6>   {new King(black),new Queen(black),new Rook(black),new Bishop(black),new Knight(black),new Pawn(black)},
@@ -30,9 +38,10 @@ private:
     };
     bitboardArray bitboards;
     bitboardArray moves;
-    bitboardArray AnD;
+    bitboard AnD;
+    bitboard kingAttackers;
+    bitboard pinLaser;
     std::ostream &errorStream = std::cerr;
-    std::ostream &logStream = std::cout;
     Color toMove;
 };
 

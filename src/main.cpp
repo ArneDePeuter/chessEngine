@@ -1,6 +1,7 @@
-#include "Chess.h"
+#include "Interacter.h"
 
 int main() {
-    Chess c;
+    Interacter c;
+    c.run();
     return 0;
 }

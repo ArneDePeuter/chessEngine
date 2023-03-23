@@ -10,25 +10,26 @@ bitboard SlidingPiece::slideToDir(const bitboard &pieces, const bitboard &myPiec
     for (int direction : directions) {
         bitboard moveSet = pieces;
         bitboard piecesMask = boardMask;
-        piecesMask &= (AnD) ? ~BitboardHandler::shift(myPieces, direction) : ~myPieces;
+        piecesMask &= (AnD) ? ~BitboardHandler::shift(myPieces&~pieces, direction) : ~myPieces;
         piecesMask &= ~BitboardHandler::shift(enemyPieces, direction);
 
         bool updating = true;
-        bool firstEnter = true;
+        int i = 0;
         bitboard prev;
         while (updating) {
             prev = moveSet;
             moveSet |= BitboardHandler::shift(moveSet, direction);
             moveSet &= piecesMask;
-
             updating = prev!=moveSet;
 
-            if (firstEnter) {
+            if (i==0) {
                 moveSet &= ~pieces;
-                firstEnter = false;
+            } else if (i==1&&AnD) {
+                piecesMask &= ~BitboardHandler::shift(pieces, direction);
             }
+            moves |= moveSet;
+            i++;
         }
-        moves |= moveSet;
     }
     moves &= boardMask;
     return moves;
