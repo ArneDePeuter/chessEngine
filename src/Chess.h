@@ -3,16 +3,10 @@
 
 #include "defs.h"
 #include "BitboardHandler.h"
-#include "Pieces/King.h"
-#include "Pieces/Queen.h"
-#include "Pieces/Rook.h"
-#include "Pieces/Bishop.h"
-#include "Pieces/Knight.h"
-#include "Pieces/Pawn.h"
+#include "Pieces/ChessPiece.h"
 #include "string"
 #include "Logger.h"
 #include "iostream"
-
 
 class Chess {
 public:
@@ -21,6 +15,7 @@ public:
     bool move(const pos &from, const pos &to);
     void print(std::ostream &os) const;
 private:
+    void setAllMoves(const Color &color);
     void setStartingBoard();
     bitboard *getBitboardAtPos(const pos &p);
     ChessPiece *getPiece(const pos &p) const;
@@ -30,6 +25,7 @@ private:
                                 {new King(white),new Queen(white),new Rook(white),new Bishop(white),new Knight(white),new Pawn(white)}
     };
     bitboardArray bitboards;
+    bitboardArray moves;
 
     std::ostream &errorStream = std::cerr;
 };
