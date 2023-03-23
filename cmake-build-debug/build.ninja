@@ -52,65 +52,72 @@ build cmake_object_order_depends_target_chess: phony || CMakeFiles/chess.dir
 build CMakeFiles/chess.dir/src/Pieces/Bishop.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/Bishop.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\Bishop.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/Chess.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Chess.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Chess.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src
 
 build CMakeFiles/chess.dir/src/Pieces/Knight.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/Knight.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\Knight.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/Pieces/Pawn.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/Pawn.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\Pawn.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/Pieces/ChessPiece.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/ChessPiece.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\ChessPiece.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/Pieces/Queen.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/Queen.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\Queen.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/Pieces/Rook.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/Rook.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\Rook.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
 
 build CMakeFiles/chess.dir/src/main.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/main.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\main.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src
 
 build CMakeFiles/chess.dir/src/Pieces/King.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/Pieces/King.cpp || cmake_object_order_depends_target_chess
   DEP_FILE = CMakeFiles\chess.dir\src\Pieces\King.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src\Pieces
+
+build CMakeFiles/chess.dir/src/BitboardHandler.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/BitboardHandler.cpp || cmake_object_order_depends_target_chess
+  DEP_FILE = CMakeFiles\chess.dir\src\BitboardHandler.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
+  OBJECT_DIR = CMakeFiles\chess.dir
+  OBJECT_FILE_DIR = CMakeFiles\chess.dir\src
 
 
 # =============================================================================
@@ -120,9 +127,10 @@ build CMakeFiles/chess.dir/src/Pieces/King.cpp.obj: CXX_COMPILER__chess_Debug C$
 #############################################
 # Link the executable chess.exe
 
-build chess.exe: CXX_EXECUTABLE_LINKER__chess_Debug CMakeFiles/chess.dir/src/Pieces/Bishop.cpp.obj CMakeFiles/chess.dir/src/Chess.cpp.obj CMakeFiles/chess.dir/src/Pieces/Knight.cpp.obj CMakeFiles/chess.dir/src/Pieces/Pawn.cpp.obj CMakeFiles/chess.dir/src/Pieces/ChessPiece.cpp.obj CMakeFiles/chess.dir/src/Pieces/Queen.cpp.obj CMakeFiles/chess.dir/src/Pieces/Rook.cpp.obj CMakeFiles/chess.dir/src/main.cpp.obj CMakeFiles/chess.dir/src/Pieces/King.cpp.obj
+build chess.exe: CXX_EXECUTABLE_LINKER__chess_Debug CMakeFiles/chess.dir/src/Pieces/Bishop.cpp.obj CMakeFiles/chess.dir/src/Chess.cpp.obj CMakeFiles/chess.dir/src/Pieces/Knight.cpp.obj CMakeFiles/chess.dir/src/Pieces/Pawn.cpp.obj CMakeFiles/chess.dir/src/Pieces/ChessPiece.cpp.obj CMakeFiles/chess.dir/src/Pieces/Queen.cpp.obj CMakeFiles/chess.dir/src/Pieces/Rook.cpp.obj CMakeFiles/chess.dir/src/main.cpp.obj CMakeFiles/chess.dir/src/Pieces/King.cpp.obj CMakeFiles/chess.dir/src/BitboardHandler.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_PATH = -LC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
   OBJECT_DIR = CMakeFiles\chess.dir
   POST_BUILD = cd .
   PRE_LINK = cd .

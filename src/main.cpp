@@ -13,7 +13,9 @@
 #include "string"
 #include "array"
 
-int main() {
+#include "BitboardHandler.h"
+
+void testPieces() {
     //Pieceorder {king, queen, rook, bishop, knight, pawn}
     pieceArray piecePointers = {
             std::array<ChessPiece*,6> {
@@ -22,7 +24,7 @@ int main() {
                     new Rook(black),
                     new Bishop(black),
                     new Knight(black),
-                    new Pawn(black)                
+                    new Pawn(black)
             },
             {
                     new King(white),
@@ -33,8 +35,18 @@ int main() {
                     new Pawn(white)
             }
     };
-
     std::cout << std::string(*piecePointers[black][queen]) << std::endl;
-    
+}
+
+void testBitboards() {
+    bitboard b;
+    BitboardHandler::setOne(b, 1, 7, true);
+    BitboardHandler::printBitboard(b, std::cout, true);
+    std::cout << std::endl;
+    BitboardHandler::printBitboard(b, std::cout, false);
+}
+
+int main() {
+    testBitboards();
     return 0;
 }

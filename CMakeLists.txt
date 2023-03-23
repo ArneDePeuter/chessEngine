@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 14)
 
 include_directories(src)
 
+include_directories(include/boost_1_81_0/)
+
+link_directories(include/boost_1_81_0/)
+
 add_executable(chess
         src/Pieces/Bishop.cpp
         src/Pieces/Bishop.h
@@ -20,4 +24,4 @@ add_executable(chess
         src/Pieces/Queen.cpp
         src/Pieces/Queen.h
         src/Pieces/Rook.cpp
-        src/Pieces/Rook.h src/main.cpp src/Pieces/King.h src/Pieces/King.cpp)
+        src/Pieces/Rook.h src/main.cpp src/Pieces/King.h src/Pieces/King.cpp src/BitboardHandler.h src/BitboardHandler.cpp)
