@@ -21,6 +21,6 @@ bool BitboardHandler::isOne(const bitboard &b, const int &row, const int &col, c
 }
 
 void BitboardHandler::setOne(bitboard &b, const int &row, const int &col, const bool &chessboard) {
-    int index = (chessboard) ? (row*10+col)+21 : row*8+col;
+    int index = (chessboard) ? (row*10+col)+21 : row*10+col;
     b |= ((bitboard) 1) << index;
 }
