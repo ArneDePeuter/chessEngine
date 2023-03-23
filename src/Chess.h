@@ -30,6 +30,7 @@ private:
     };
     bitboardArray bitboards;
     bitboardArray moves;
+    bitboardArray AnD;
     std::ostream &errorStream = std::cerr;
     std::ostream &logStream = std::cout;
     Color toMove;

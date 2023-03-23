@@ -2,9 +2,8 @@
 
 Knight::Knight(Color color) : ChessPiece(color, 'N', "Knight", 100, knight) {}
 
-bitboard Knight::getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) {
+bitboard Knight::getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) {
     bitboard moves;
-    bitboard piecesMask = ~myPieces;
 
     moves |= BitboardHandler::shift(pieces, FORWARD+FORWARD+LEFT);
     moves |= BitboardHandler::shift(pieces, FORWARD+FORWARD+RIGHT);
@@ -15,6 +14,9 @@ bitboard Knight::getMoves(const bitboard &pieces, const bitboard &myPieces, cons
     moves |= BitboardHandler::shift(pieces, RIGHT+RIGHT+FORWARD);
     moves |= BitboardHandler::shift(pieces, RIGHT+RIGHT+BACKWARD);
 
+    if (AnD) return moves & boardMask;
+
+    bitboard piecesMask = ~myPieces;
     moves &= piecesMask & boardMask;
     return moves;
 }

@@ -26,3 +26,4 @@ PieceIndex ChessPiece::getIndex() const {
 }
 
 
+

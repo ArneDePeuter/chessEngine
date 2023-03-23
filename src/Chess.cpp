@@ -81,6 +81,7 @@ void Chess::print(std::ostream &os) const {
             } else {
                 os << piece->getCharacter();
             }
+            os << " ";
         }
         os << std::endl;
     }
@@ -90,7 +91,7 @@ void Chess::setAllMoves(const Color &color) {
     for (int pieceName = 0; pieceName < 6; pieceName++) {
         moves[color][pieceName] = piecePointers[color][pieceName]->getMoves(bitboards[color][pieceName],
                                                                             getCombinedBoards(color),
-                                                                            getCombinedBoards(swapColor(color)));
+                                                                            getCombinedBoards(swapColor(color)), false);
     }
 }
 

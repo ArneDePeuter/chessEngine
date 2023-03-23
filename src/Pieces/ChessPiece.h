@@ -9,7 +9,7 @@ class ChessPiece {
 public:
     ChessPiece(Color color, char character, const std::string &name, const int &value, const PieceIndex &index);
 
-    virtual bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) = 0;
+    virtual bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) = 0;
 
     explicit operator std::string();
 
@@ -28,47 +28,54 @@ protected:
     Color color;
 };
 
-class Bishop : public ChessPiece {
-public:
-    explicit Bishop(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
-private:
-};
-
 class King : public ChessPiece {
 public:
     explicit King(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
 };
 
 class Knight : public ChessPiece {
 public:
     explicit Knight(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
 };
 
 class Pawn : public ChessPiece {
 public:
     explicit Pawn(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
+    bitboard getAttackMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD);
     int sign;
     bitboard doubleMoveMask;
 };
 
-class Queen : public ChessPiece {
+class SlidingPiece : public ChessPiece {
+public:
+    SlidingPiece(Color color, char character, const std::string &name, const int &value, const PieceIndex &index);
+    bitboard slideToDir(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const std::array<int, 8> &directions, const bool &AnD);
+};
+
+class Queen : public SlidingPiece {
 public:
     explicit Queen(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
 };
 
-class Rook : public ChessPiece {
+class Rook : public SlidingPiece {
 public:
     explicit Rook(Color color);
-    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
+private:
+};
+
+class Bishop : public SlidingPiece {
+public:
+    explicit Bishop(Color color);
+    bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
 };
 
