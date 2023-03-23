@@ -4,6 +4,11 @@
 #include <array>
 #include <boost/multiprecision/cpp_int.hpp>
 
+const int FORWARD = 10;
+const int LEFT = 1;
+const int BACKWARD = -FORWARD;
+const int RIGHT = -LEFT;
+
 using namespace boost::multiprecision;
 
 typedef int128_t bitboard;

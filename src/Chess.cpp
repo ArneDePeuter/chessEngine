@@ -4,6 +4,7 @@ Chess::Chess(const std::string &FENstring) {}
 
 Chess::Chess() {
     setStartingBoard();
+    setAllMoves(toMove);
 }
 
 void Chess::setStartingBoard() {
@@ -87,7 +88,9 @@ void Chess::print(std::ostream &os) const {
 
 void Chess::setAllMoves(const Color &color) {
     for (int pieceName = 0; pieceName < 6; pieceName++) {
-        moves[color][pieceName] = piecePointers[color][pieceName]->getMoves(bitboards[color][pieceName]);
+        moves[color][pieceName] = piecePointers[color][pieceName]->getMoves(bitboards[color][pieceName],
+                                                                            getCombinedBoards(color),
+                                                                            getCombinedBoards(swapColor(color)));
     }
 }
 

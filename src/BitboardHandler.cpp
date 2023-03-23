@@ -31,8 +31,17 @@ void BitboardHandler::del(bitboard &b, const int &row, const int &col, const boo
     b &= ~((bitboard) 1) << index;
 }
 
-void BitboardHandler::maskBoard(bitboard &b) {
-    b = cpp_int("631966574893838704558473216000").convert_to<bitboard>() & b;
+bitboard BitboardHandler::getBoardMask() {
+    return initBoard("631966574893838704558473216000");
+}
+
+bitboard BitboardHandler::shift(const bitboard &b, int val) {
+    if (val<0) return b >> -val;
+    return b << val;
+}
+
+bitboard BitboardHandler::initBoard(const std::string &num) {
+    return cpp_int(num).convert_to<bitboard>();
 }
 
 

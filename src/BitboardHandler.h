@@ -10,7 +10,9 @@ public:
     static bool isOne(const bitboard &b, const int &row, const int &col, const bool &chessboard);
     static void add(bitboard &b, const int &row, const int &col, const bool &chessboard);
     static void del(bitboard &b, const int &row, const int &col, const bool &chessboard);
-    static void maskBoard(bitboard &b);
+    static bitboard shift(const bitboard &b, int val);
+    static bitboard getBoardMask();
+    static bitboard initBoard(const std::string &num);
 };
 
 

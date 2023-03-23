@@ -2,6 +2,7 @@
 #define CHESS_CHESSPIECE_H
 
 #include "defs.h"
+#include "BitboardHandler.h"
 #include "string"
 
 class ChessPiece {
@@ -18,11 +19,13 @@ public:
     const std::string &getName() const;
     int getValue() const;
 private:
-    Color color;
     PieceIndex index;
     char character;
     std::string name;
     int value;
+protected:
+    bitboard boardMask = BitboardHandler::getBoardMask();
+    Color color;
 };
 
 class Bishop : public ChessPiece {
@@ -51,6 +54,8 @@ public:
     explicit Pawn(Color color);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces) override;
 private:
+    int sign;
+    bitboard doubleMoveMask;
 };
 
 class Queen : public ChessPiece {
