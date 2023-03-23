@@ -8,3 +8,5 @@ bitboard Rook::getMoves(const bitboard &pieces, const bitboard &myPieces, const 
     };
     return slideToDir(pieces, myPieces, enemyPieces, directions, AnD);
 }
+
+

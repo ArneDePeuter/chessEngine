@@ -30,25 +30,27 @@ protected:
 
 class King : public ChessPiece {
 public:
-    explicit King(Color color);
+    explicit King(Color color, bool *castleKing, bool *castleQueen);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
+    bool *castleKing;
+    bool *castleQueen;
 };
 
 class Knight : public ChessPiece {
 public:
     explicit Knight(Color color);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
-private:
 };
 
 class Pawn : public ChessPiece {
 public:
-    explicit Pawn(Color color);
+    explicit Pawn(Color color, bitboard *enPassant);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
 private:
     bitboard getAttackMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD);
     int sign;
+    bitboard *enPassant;
     bitboard doubleMoveMask;
 };
 
@@ -62,21 +64,18 @@ class Queen : public SlidingPiece {
 public:
     explicit Queen(Color color);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
-private:
 };
 
 class Rook : public SlidingPiece {
 public:
     explicit Rook(Color color);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
-private:
 };
 
 class Bishop : public SlidingPiece {
 public:
     explicit Bishop(Color color);
     bitboard getMoves(const bitboard &pieces, const bitboard &myPieces, const bitboard &enemyPieces, const bool &AnD) override;
-private:
 };
 
 

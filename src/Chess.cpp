@@ -9,6 +9,7 @@ Chess::Chess() {
 
 void Chess::setStartingBoard() {
     toMove = white;
+    castleRights = {true, true, true, true};
 
     //kings
     BitboardHandler::add(bitboards[white][king],7,4,true);
@@ -69,6 +70,7 @@ bool Chess::move(const pos &from, const pos &to) {
         bitboard *killBoard = &bitboards[toPiece->getColor()][toPiece->getIndex()];
         BitboardHandler::del(*killBoard, to.first, to.second, true);
     }
+    handleEnpassant(fromPiece, from, to);
     return true;
 }
 
@@ -219,4 +221,21 @@ void Chess::setKingAttackers() {
 
 bool Chess::gameOver() {
     return stalemate() || checkmate();
+}
+
+void Chess::handleEnpassant(ChessPiece *movedPiece, const pos &from, const pos &to) {
+    if (!dynamic_cast<Pawn*>(movedPiece)) {
+        enPassant = 0;
+        return;
+    }
+
+    bitboard toBoard;
+    BitboardHandler::add(toBoard, to.first, to.second, true);
+    if (abs(from.first-to.first)==2) {
+        BitboardHandler::add(enPassant, from.first+(to.first-from.first)/2, from.second,true);
+        return;
+    } else if (toBoard&enPassant) {
+        BitboardHandler::del(bitboards[swapColor(toMove)][pawn],from.first,to.second,true);
+    }
+    enPassant = 0;
 }

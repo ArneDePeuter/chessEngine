@@ -13,9 +13,11 @@ using namespace boost::multiprecision;
 
 typedef int128_t bitboard;
 typedef std::array<std::array<bitboard,6>,2> bitboardArray;
+typedef std::array<bool,4> castleRightsArray;
 
 enum Color {black , white};
 enum PieceIndex {king, queen, rook, bishop, knight, pawn};
+enum castleIndex {wCastleQ, wCastleK, bCastleQ, bCastleK};
 
 class ChessPiece;
 

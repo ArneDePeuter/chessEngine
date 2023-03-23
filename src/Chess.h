@@ -29,10 +29,13 @@ private:
     bool check() const;
     bool checkmate() const;
     bool stalemate() const;
+    void handleEnpassant(ChessPiece *movedPiece, const pos &from, const pos &to);
 
+    bitboard enPassant;
+    castleRightsArray castleRights;
     pieceArray piecePointers = {
-    std::array<ChessPiece*,6>   {new King(black),new Queen(black),new Rook(black),new Bishop(black),new Knight(black),new Pawn(black)},
-                                {new King(white),new Queen(white),new Rook(white),new Bishop(white),new Knight(white),new Pawn(white)}
+    std::array<ChessPiece*,6>   {new King(black, &castleRights[bCastleK], &castleRights[bCastleQ]),new Queen(black),new Rook(black),new Bishop(black),new Knight(black),new Pawn(black, &enPassant)},
+                                {new King(white, &castleRights[wCastleK], &castleRights[wCastleQ]),new Queen(white),new Rook(white),new Bishop(white),new Knight(white),new Pawn(white, &enPassant)}
     };
     bitboardArray bitboards;
     bitboardArray moves;
