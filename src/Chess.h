@@ -22,15 +22,16 @@ private:
     ChessPiece *getPiece(const pos &p) const;
     void setAllMoves(const Color &color);
     void setStartingBoard();
-    bitboard getCombinedBoards() const;
+    bitboard getCombinedBoards(const Color &color) const;
+
     pieceArray piecePointers = {
     std::array<ChessPiece*,6>   {new King(black),new Queen(black),new Rook(black),new Bishop(black),new Knight(black),new Pawn(black)},
                                 {new King(white),new Queen(white),new Rook(white),new Bishop(white),new Knight(white),new Pawn(white)}
     };
     bitboardArray bitboards;
     bitboardArray moves;
-
     std::ostream &errorStream = std::cerr;
+    std::ostream &logStream = std::cout;
     Color toMove;
 };
 

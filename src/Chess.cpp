@@ -42,15 +42,6 @@ void Chess::setStartingBoard() {
     }
 }
 
-bitboard Chess::getCombinedBoards() const {
-    bitboard result;
-    for (int color = 0; color < 2; color++) {
-        for (int pieceName = 0; pieceName < 6; pieceName++) {
-            result |= bitboards[color][pieceName];
-        }
-    }
-    return result;
-}
 
 bool Chess::move(const pos &from, const pos &to) {
     ChessPiece *fromPiece = getPiece(from, toMove);
@@ -119,6 +110,14 @@ ChessPiece *Chess::getPiece(const pos &p) const {
 
 Color Chess::swapColor(const Color &c) {
     Color result = (c==black) ? white : black;
+    return result;
+}
+
+bitboard Chess::getCombinedBoards(const Color &color) const {
+    bitboard result;
+    for (int pieceName = 0; pieceName < 6; pieceName++) {
+        result |= bitboards[color][pieceName];
+    }
     return result;
 }
 
