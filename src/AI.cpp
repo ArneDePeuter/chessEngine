@@ -7,8 +7,10 @@ void AI::perft(std::ostream &os, int depth, const int &initDepth) {
         totalPerft = 0;
     }
     if (depth<=0 || c->gameOver()) {
-        perftCounter++;
-        totalPerft++;
+        if (!c->gameOver()) {
+            perftCounter++;
+            totalPerft++;
+        }
         return;
     }
 
@@ -24,7 +26,7 @@ void AI::perft(std::ostream &os, int depth, const int &initDepth) {
                     if (BitboardHandler::isOne(moves, moveRow, moveCol, true)) {
                         if (depth==initDepth) {
                             perftCounter = 0;
-                            os << char('a'+col) << abs(row-8) << " " << char('a'+moveCol) << abs(moveRow-8) << ": ";
+                            os << char('a'+col) << abs(row-8) << char('a'+moveCol) << abs(moveRow-8) << ": ";
                         }
                         bool moved = c->move(pos(row, col), pos(moveRow, moveCol));
                         if (moved) perft(os, depth-1, initDepth);

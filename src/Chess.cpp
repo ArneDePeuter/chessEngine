@@ -86,7 +86,9 @@ void Chess::print(std::ostream &os) const {
         os << 8 - row << " |";
         for (int col = 0; col < 8; col++) {
             ChessPiece* piece = getPiece(pos(row, col));
-            if (piece==nullptr) {
+            if (BitboardHandler::isOne(enPassant, row, col, true)) {
+                os << "E";
+            } else if (piece==nullptr) {
                 os << " ";
             } else {
                 os << piece->getCharacter();
@@ -244,6 +246,7 @@ void Chess::handleEnpassant(ChessPiece *movedPiece, const pos &from, const pos &
     bitboard toBoard;
     BitboardHandler::add(toBoard, to.first, to.second, true);
     if (abs(from.first-to.first)==2) {
+        enPassant = 0;
         BitboardHandler::add(enPassant, from.first+(to.first-from.first)/2, from.second,true);
         return;
     } else if (toBoard&enPassant) {
