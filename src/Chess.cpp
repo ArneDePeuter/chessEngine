@@ -52,14 +52,14 @@ bool Chess::move(const pos &from, const pos &to) {
     ChessPiece *fromPiece = getPiece(from, toMove);
 
     if (fromPiece == nullptr) {
-        Logger::writeError(errorStream, "No piece from this color at starting location");
+//        Logger::writeError(errorStream, "No piece from this color at starting location");
         return false;
     }
 
     bitboard myMoves = moves[fromPiece->getColor()][fromPiece->getIndex()];
 
     if (!BitboardHandler::isOne(myMoves, to.first, to.second, true) || !validCastle(fromPiece, from, to)) {
-        Logger::writeError(errorStream, "Invalid Move");
+//        Logger::writeError(errorStream, "Invalid Move");
         return false;
     }
     undostack->push();
@@ -355,5 +355,9 @@ void Chess::redo() {
     undostack->push();
     redostack->pop();
     toMove = swapColor(toMove);
+}
+
+Color Chess::getToMove() const {
+    return toMove;
 }
 

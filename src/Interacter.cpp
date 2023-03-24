@@ -1,6 +1,8 @@
 #include "Interacter.h"
 
-Interacter::Interacter() {}
+Interacter::Interacter() {
+    ai = new AI(&game);
+}
 
 void Interacter::run() {
     game.print(std::cout);
@@ -25,6 +27,8 @@ void Interacter::run() {
         } else if (input == "quit") {
             std::cout << "See ya later!\n";
             break;
+        } else if (input == "perft") {
+            perft();
         }
     }
 }
@@ -40,4 +44,10 @@ bool Interacter::move() {
     int toCol = to[0]-'a';
 
     return game.move(pos(fromRow, fromCol), pos(toRow, toCol));
+}
+
+void Interacter::perft() {
+    int depth;
+    std::cin >> depth;
+    ai->perft(std::cout, depth, depth);
 }

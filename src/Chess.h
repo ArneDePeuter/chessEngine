@@ -30,12 +30,13 @@ public:
     void setBitboards(const bitboardArray &bitboards);
     void setMoves(const bitboardArray &moves);
     void setAnD(const bitboard &anD);
-private:
     ChessPiece *getPiece(const pos &p, const Color &c) const;
-    static Color swapColor(const Color &c);
     ChessPiece *getPiece(const pos &p) const;
-    void setStartingBoard();
+    Color getToMove() const;
     bitboard getCombinedBoards(const Color &color) const;
+    static Color swapColor(const Color &c);
+private:
+    void setStartingBoard();
     void setPinLaser();
     void setKingAttackers();
     void setAnD();

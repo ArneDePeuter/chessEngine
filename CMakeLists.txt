@@ -20,4 +20,4 @@ add_executable(chess
         src/Pieces/ChessPiece.h
         src/Pieces/Queen.cpp
         src/Pieces/Rook.cpp
-        src/main.cpp src/Pieces/King.cpp src/BitboardHandler.h src/BitboardHandler.cpp src/Logger.h src/Pieces/SlidingPiece.cpp src/Interacter.h src/Interacter.cpp src/ChessStack.cpp)
+        src/main.cpp src/Pieces/King.cpp src/BitboardHandler.h src/BitboardHandler.cpp src/Logger.h src/Pieces/SlidingPiece.cpp src/Interacter.h src/Interacter.cpp src/ChessStack.cpp src/AI.cpp)

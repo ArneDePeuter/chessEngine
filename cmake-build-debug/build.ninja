@@ -140,6 +140,13 @@ build CMakeFiles/chess.dir/src/ChessStack.cpp.obj: CXX_COMPILER__chess_Debug C$:
   OBJECT_DIR = CMakeFiles\chess.dir
   OBJECT_FILE_DIR = CMakeFiles\chess.dir\src
 
+build CMakeFiles/chess.dir/src/AI.cpp.obj: CXX_COMPILER__chess_Debug C$:/Users/arne/Documents/2022-2023/chess/src/AI.cpp || cmake_object_order_depends_target_chess
+  DEP_FILE = CMakeFiles\chess.dir\src\AI.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/arne/Documents/2022-2023/chess/src -IC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0
+  OBJECT_DIR = CMakeFiles\chess.dir
+  OBJECT_FILE_DIR = CMakeFiles\chess.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target chess
@@ -148,7 +155,7 @@ build CMakeFiles/chess.dir/src/ChessStack.cpp.obj: CXX_COMPILER__chess_Debug C$:
 #############################################
 # Link the executable chess.exe
 
-build chess.exe: CXX_EXECUTABLE_LINKER__chess_Debug CMakeFiles/chess.dir/src/Pieces/Bishop.cpp.obj CMakeFiles/chess.dir/src/Chess.cpp.obj CMakeFiles/chess.dir/src/Pieces/Knight.cpp.obj CMakeFiles/chess.dir/src/Pieces/Pawn.cpp.obj CMakeFiles/chess.dir/src/Pieces/ChessPiece.cpp.obj CMakeFiles/chess.dir/src/Pieces/Queen.cpp.obj CMakeFiles/chess.dir/src/Pieces/Rook.cpp.obj CMakeFiles/chess.dir/src/main.cpp.obj CMakeFiles/chess.dir/src/Pieces/King.cpp.obj CMakeFiles/chess.dir/src/BitboardHandler.cpp.obj CMakeFiles/chess.dir/src/Pieces/SlidingPiece.cpp.obj CMakeFiles/chess.dir/src/Interacter.cpp.obj CMakeFiles/chess.dir/src/ChessStack.cpp.obj
+build chess.exe: CXX_EXECUTABLE_LINKER__chess_Debug CMakeFiles/chess.dir/src/Pieces/Bishop.cpp.obj CMakeFiles/chess.dir/src/Chess.cpp.obj CMakeFiles/chess.dir/src/Pieces/Knight.cpp.obj CMakeFiles/chess.dir/src/Pieces/Pawn.cpp.obj CMakeFiles/chess.dir/src/Pieces/ChessPiece.cpp.obj CMakeFiles/chess.dir/src/Pieces/Queen.cpp.obj CMakeFiles/chess.dir/src/Pieces/Rook.cpp.obj CMakeFiles/chess.dir/src/main.cpp.obj CMakeFiles/chess.dir/src/Pieces/King.cpp.obj CMakeFiles/chess.dir/src/BitboardHandler.cpp.obj CMakeFiles/chess.dir/src/Pieces/SlidingPiece.cpp.obj CMakeFiles/chess.dir/src/Interacter.cpp.obj CMakeFiles/chess.dir/src/ChessStack.cpp.obj CMakeFiles/chess.dir/src/AI.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/arne/Documents/2022-2023/chess/include/boost_1_81_0

@@ -3,14 +3,17 @@
 
 #include "Chess.h"
 #include "string"
+#include "AI.h"
 
 class Interacter {
 public:
     Interacter();
     void run();
     bool move();
+    void perft();
 private:
     Chess game;
+    AI *ai;
 };
 
 
