@@ -9,7 +9,6 @@ void Interacter::run() {
         std::cin >> input;
         if (input == "move"){
             if (move()) {
-                game.swap();
                 game.print(std::cout);
                 if (game.gameOver()) {
                     std::cout << "Game over.\n";
@@ -17,6 +16,12 @@ void Interacter::run() {
                     break;
                 }
             }
+        } else if (input=="undo") {
+            game.undo();
+            game.print(std::cout);
+        } else if (input=="redo") {
+            game.redo();
+            game.print(std::cout);
         } else if (input == "quit") {
             std::cout << "See ya later!\n";
             break;

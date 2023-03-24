@@ -8,6 +8,8 @@
 #include "Logger.h"
 #include "iostream"
 
+class ChessStack;
+
 class Chess {
 public:
     Chess(const std::string &FENstring);
@@ -16,6 +18,18 @@ public:
     void print(std::ostream &os) const;
     void swap();
     bool gameOver();
+    void undo();
+    void redo();
+    const bitboard &getEnPassant() const;
+    const castleRightsArray &getCastleRights() const;
+    const bitboardArray &getBitboards() const;
+    const bitboardArray &getMoves() const;
+    const bitboard &getAnD() const;
+    void setEnPassant(const bitboard &enPassant);
+    void setCastleRights(const castleRightsArray &castleRights);
+    void setBitboards(const bitboardArray &bitboards);
+    void setMoves(const bitboardArray &moves);
+    void setAnD(const bitboard &anD);
 private:
     ChessPiece *getPiece(const pos &p, const Color &c) const;
     static Color swapColor(const Color &c);
@@ -45,6 +59,9 @@ private:
     bitboard pinLaser;
     std::ostream &errorStream = std::cerr;
     Color toMove;
+
+    ChessStack *undostack;
+    ChessStack *redostack;
 };
 
 

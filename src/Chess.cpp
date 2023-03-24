@@ -1,8 +1,11 @@
 #include "Chess.h"
+#include "ChessStack.h"
 
 Chess::Chess(const std::string &FENstring) {}
 
 Chess::Chess() {
+    undostack = new ChessStack(this);
+    redostack = new ChessStack(this);
     setStartingBoard();
     update();
 }
@@ -59,6 +62,7 @@ bool Chess::move(const pos &from, const pos &to) {
         Logger::writeError(errorStream, "Invalid Move");
         return false;
     }
+    undostack->push();
 
     //execute move
     bitboard *fromBoard = &bitboards[fromPiece->getColor()][fromPiece->getIndex()];
@@ -71,6 +75,8 @@ bool Chess::move(const pos &from, const pos &to) {
         BitboardHandler::del(*killBoard, to.first, to.second, true);
     }
     handleEnpassant(fromPiece, from, to);
+
+    swap();
     return true;
 }
 
@@ -297,5 +303,57 @@ bool Chess::validCastle(ChessPiece *movedPiece, const pos &from, const pos &to) 
     } else {
         return false;
     }
+}
+
+const bitboard &Chess::getEnPassant() const {
+    return enPassant;
+}
+
+const castleRightsArray &Chess::getCastleRights() const {
+    return castleRights;
+}
+
+const bitboardArray &Chess::getBitboards() const {
+    return bitboards;
+}
+
+const bitboardArray &Chess::getMoves() const {
+    return moves;
+}
+
+const bitboard &Chess::getAnD() const {
+    return AnD;
+}
+
+void Chess::setEnPassant(const bitboard &enPassant) {
+    Chess::enPassant = enPassant;
+}
+
+void Chess::setCastleRights(const castleRightsArray &castleRights) {
+    Chess::castleRights = castleRights;
+}
+
+void Chess::setBitboards(const bitboardArray &bitboards) {
+    Chess::bitboards = bitboards;
+}
+
+void Chess::setMoves(const bitboardArray &moves) {
+    Chess::moves = moves;
+}
+
+void Chess::setAnD(const bitboard &anD) {
+    AnD = anD;
+}
+
+void Chess::undo() {
+    redostack->push();
+    undostack->pop();
+    toMove = swapColor(toMove);
+}
+
+void Chess::redo() {
+    undostack->push();
+    redostack->pop();
+    toMove = swapColor(toMove);
 }
 
