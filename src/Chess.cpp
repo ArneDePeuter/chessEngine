@@ -16,8 +16,8 @@ void Chess::setStartingBoard() {
     BitboardHandler::add(bitboards[black][king],0,4,true);
 
     //queens
-    BitboardHandler::add(bitboards[white][queen],7,3,true);
-    BitboardHandler::add(bitboards[black][queen],0,3,true);
+//    BitboardHandler::add(bitboards[white][queen],7,3,true);
+//    BitboardHandler::add(bitboards[black][queen],0,3,true);
 
     //rooks
     BitboardHandler::add(bitboards[white][rook],7,0,true);
@@ -26,16 +26,16 @@ void Chess::setStartingBoard() {
     BitboardHandler::add(bitboards[black][rook],0,7,true);
 
     //bishops
-    BitboardHandler::add(bitboards[white][bishop],7,2,true);
-    BitboardHandler::add(bitboards[white][bishop],7,5,true);
-    BitboardHandler::add(bitboards[black][bishop],0,2,true);
-    BitboardHandler::add(bitboards[black][bishop],0,5,true);
+//    BitboardHandler::add(bitboards[white][bishop],7,2,true);
+//    BitboardHandler::add(bitboards[white][bishop],7,5,true);
+//    BitboardHandler::add(bitboards[black][bishop],0,2,true);
+//    BitboardHandler::add(bitboards[black][bishop],0,5,true);
 
     //knight
-    BitboardHandler::add(bitboards[white][knight],7,1,true);
-    BitboardHandler::add(bitboards[white][knight],7,6,true);
-    BitboardHandler::add(bitboards[black][knight],0,1,true);
-    BitboardHandler::add(bitboards[black][knight],0,6,true);
+//    BitboardHandler::add(bitboards[white][knight],7,1,true);
+//    BitboardHandler::add(bitboards[white][knight],7,6,true);
+//    BitboardHandler::add(bitboards[black][knight],0,1,true);
+//    BitboardHandler::add(bitboards[black][knight],0,6,true);
 
     //pawns
     for (int i = 0; i < 8; i++) {
@@ -57,6 +57,10 @@ bool Chess::move(const pos &from, const pos &to) {
 
     if (!BitboardHandler::isOne(myMoves, to.first, to.second, true)) {
         Logger::writeError(errorStream, "Invalid Move");
+        return false;
+    }
+
+    if (!validCastle(fromPiece, from, to)) {
         return false;
     }
 
@@ -107,6 +111,12 @@ void Chess::print(std::ostream &os) const {
     os << "Checkmate: " << std::boolalpha << checkmate() << std::endl;
     os << "Stalemate: " << std::boolalpha << stalemate() << std::endl;
     os << std::endl;
+    os << "Castle King White: " << std::boolalpha << castleRights[wCastleK] << std::endl;
+    os << "Castle Queen White: " << std::boolalpha << castleRights[wCastleQ] << std::endl;
+    os << "Castle King Black: " << std::boolalpha << castleRights[bCastleK] << std::endl;
+    os << "Castle King Black: " << std::boolalpha << castleRights[bCastleQ] << std::endl;
+    os << std::endl;
+
 }
 
 void Chess::update() {
@@ -239,3 +249,53 @@ void Chess::handleEnpassant(ChessPiece *movedPiece, const pos &from, const pos &
     }
     enPassant = 0;
 }
+
+bool Chess::validCastle(ChessPiece *movedPiece, const pos &from, const pos &to) {
+    if (dynamic_cast<Rook*>(movedPiece)) {
+        if (from == pos(0,0)) castleRights[bCastleQ] = false;
+        if (from == pos(0,7)) castleRights[bCastleK] = false;
+        if (from == pos(7,0)) castleRights[wCastleQ] = false;
+        if (from == pos(7,7)) castleRights[bCastleK] = false;
+        return true; //ignore
+    } else if (!dynamic_cast<King*>(movedPiece)) {
+        if (to == pos(0,0)) castleRights[bCastleQ] = false;
+        if (to == pos(0,7)) castleRights[bCastleK] = false;
+        if (to == pos(7,0)) castleRights[wCastleQ] = false;
+        if (to == pos(7,7)) castleRights[bCastleK] = false;
+        return true; //ignore
+    }
+
+    bitboard combined = getCombinedBoards(toMove)|getCombinedBoards(swapColor(toMove));
+    if (from == pos(0,4)) {
+        if (to == pos(0,2)) {
+            if (castleRights[bCastleK]
+                &&!(BitboardHandler::isOne(combined, 0, 1, true)
+                &&BitboardHandler::isOne(combined, 0, 2, true)
+                &&BitboardHandler::isOne(combined, 0, 3, true)
+                &&check()
+                &&BitboardHandler::isOne(AnD, 0, 2, true)
+                &&BitboardHandler::isOne(AnD, 0, 3, true))) {
+
+                BitboardHandler::add(bitboards[toMove][rook], 0, 3, true);
+                BitboardHandler::del(bitboards[toMove][rook], 0, 0, true);
+
+                castleRights[bCastleQ] = false;
+                castleRights[bCastleK] = false;
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            castleRights[bCastleQ] = false;
+            castleRights[bCastleK] = false;
+            return true;
+        }
+    }
+    if (from == pos(7,4)) {
+        castleRights[wCastleQ] = false;
+        castleRights[wCastleK] = false;
+    }
+    return true;
+}
+

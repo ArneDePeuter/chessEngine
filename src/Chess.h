@@ -30,6 +30,7 @@ private:
     bool checkmate() const;
     bool stalemate() const;
     void handleEnpassant(ChessPiece *movedPiece, const pos &from, const pos &to);
+    bool validCastle(ChessPiece *movedPiece, const pos &from, const pos &to);
 
     bitboard enPassant;
     castleRightsArray castleRights;
