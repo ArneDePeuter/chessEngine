@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.24"
+						"string" : "3.18.4"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "chess::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-chess-Debug-a3ba09d5751112b73da5.json",
+					"jsonFile" : "target-chess-Debug-a3be812a8bc8e18d82fe.json",
 					"name" : "chess",
 					"projectIndex" : 0
 				}
