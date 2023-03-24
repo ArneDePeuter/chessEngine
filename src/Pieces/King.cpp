@@ -20,7 +20,7 @@ bitboard King::getMoves(const bitboard &pieces, const bitboard &myPieces, const 
     if (color == black && BitboardHandler::isOne(pieces, 0, 4, true)) {
         if (*castleQueen) BitboardHandler::add(castleMoves, 0, 2, true);
         if (*castleKing)  BitboardHandler::add(castleMoves, 0, 6, true);
-    } else if (color == black && BitboardHandler::isOne(pieces, 7, 4, true)) {
+    } else if (color == white && BitboardHandler::isOne(pieces, 7, 4, true)) {
         if (*castleQueen) BitboardHandler::add(castleMoves, 7, 2, true);
         if (*castleKing)  BitboardHandler::add(castleMoves, 7, 6, true);
     }
