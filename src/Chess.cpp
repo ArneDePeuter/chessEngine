@@ -132,7 +132,9 @@ void Chess::update() {
                                                                             getCombinedBoards(toMove),
                                                                             getCombinedBoards(swapColor(toMove)), false);
         if (kingAttackers>((bitboard)0)) {
-            moves[toMove][pieceName] &= kingAttackers;
+            if (pieceName!=king) {
+                moves[toMove][pieceName] &= kingAttackers;
+            }
         }
     }
     setAnD();
@@ -171,22 +173,30 @@ bitboard Chess::getCombinedBoards(const Color &color) const {
 
 void Chess::setPinLaser() {
     pinLaser = ((bitboard) 0);
-    bitboard enemySliders = bitboards[swapColor(toMove)][rook] | bitboards[swapColor(toMove)][queen] | bitboards[swapColor(toMove)][bishop];
-    Queen kingQueen = Queen(toMove);
+    bitboard enemyBishops = bitboards[swapColor(toMove)][queen] | bitboards[swapColor(toMove)][bishop];
+    bitboard enemyRooks = bitboards[swapColor(toMove)][rook] | bitboards[swapColor(toMove)][queen];
 
-    bitboard pinMask = kingQueen.getMoves(bitboards[toMove][king], getCombinedBoards(toMove), getCombinedBoards(swapColor(toMove)),true);
+    Queen *kingQueen = new Queen(toMove);
 
+    bitboard pinMask = kingQueen->getMoves(bitboards[toMove][king], getCombinedBoards(toMove), getCombinedBoards(swapColor(toMove)),true);
 
-    std::array<int, 8> directions = {
-            FORWARD, BACKWARD, LEFT, RIGHT, FORWARD+LEFT, FORWARD+RIGHT, BACKWARD+LEFT, BACKWARD+RIGHT
-    };
+    std::array<int, 4> rookDirections = {FORWARD, BACKWARD, LEFT, RIGHT };
+    std::array<int, 4> bishopDirections = {FORWARD+LEFT, FORWARD+RIGHT, BACKWARD+LEFT, BACKWARD+RIGHT};
+
     bitboard slide;
-    for (int direction : directions) {
-        slide = kingQueen.slideToDir(bitboards[toMove][king], getCombinedBoards(toMove)&~pinMask, getCombinedBoards(swapColor(toMove)), {direction}, false);
-        if (slide&enemySliders) {
+    for (int direction : rookDirections) {
+        slide = kingQueen->slideToDir(bitboards[toMove][king], getCombinedBoards(toMove)&~pinMask, getCombinedBoards(swapColor(toMove)), {direction}, false);
+        if (slide&enemyRooks) {
             pinLaser |= slide;
         }
     }
+    for (int direction : bishopDirections) {
+        slide = kingQueen->slideToDir(bitboards[toMove][king], getCombinedBoards(toMove)&~pinMask, getCombinedBoards(swapColor(toMove)), {direction}, false);
+        if (slide&enemyBishops) {
+            pinLaser |= slide;
+        }
+    }
+    delete kingQueen;
 }
 
 void Chess::setAnD() {
@@ -208,19 +218,19 @@ bool Chess::check() const {
 }
 
 bool Chess::checkmate() const {
-    bool hasMoves=false;
+    bitboard possibleMoves;
     for (int pieceIndex = 0; pieceIndex < 6; ++pieceIndex) {
-        hasMoves = hasMoves || moves[toMove][pieceIndex];
+        possibleMoves |= moves[toMove][pieceIndex];
     }
-    return check() && !hasMoves;
+    return check() && !possibleMoves;
 }
 
 bool Chess::stalemate() const {
-    bool hasMoves=false;
+    bitboard possibleMoves;
     for (int pieceIndex = 0; pieceIndex < 6; ++pieceIndex) {
-        hasMoves = hasMoves || moves[toMove][pieceIndex];
+        possibleMoves |= moves[toMove][pieceIndex];
     }
-    return !check() && !hasMoves;
+    return !check() && !possibleMoves;
 }
 
 void Chess::setKingAttackers() {
