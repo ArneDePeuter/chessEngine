@@ -7,10 +7,8 @@ void AI::perft(std::ostream &os, int depth, const int &initDepth) {
         totalPerft = 0;
     }
     if (depth<=0 || c->gameOver()) {
-        if (!c->gameOver()) {
-            perftCounter++;
-            totalPerft++;
-        }
+        perftCounter++;
+        totalPerft++;
         return;
     }
 
