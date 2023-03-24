@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(src)
 
 include_directories(include/boost_1_81_0/)
-
 link_directories(include/boost_1_81_0/)
 
 add_executable(chess

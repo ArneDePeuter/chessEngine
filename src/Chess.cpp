@@ -1,3 +1,4 @@
+
 #include "Chess.h"
 #include "ChessStack.h"
 
@@ -189,8 +190,9 @@ void Chess::setPinLaser() {
 }
 
 void Chess::setAnD() {
+    AnD = ((bitboard) 0);
     for (int pieceName = 0; pieceName < 6; pieceName++) {
-        AnD |= piecePointers[swapColor(toMove)][pieceName]->getMoves(bitboards[swapColor(toMove)][pieceName]&pinLaser,
+        AnD |= piecePointers[swapColor(toMove)][pieceName]->getMoves(bitboards[swapColor(toMove)][pieceName],
                                                                               getCombinedBoards(swapColor(toMove)),
                                                                               getCombinedBoards(toMove), true);
     }
