@@ -10,6 +10,7 @@ public:
     Interacter();
     void run();
     bool move();
+    void best();
     void perft();
 private:
     Chess game;

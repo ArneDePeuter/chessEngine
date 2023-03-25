@@ -376,3 +376,16 @@ Color Chess::getToMove() const {
     return toMove;
 }
 
+double Chess::evaluate() {
+    double total = 0;
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            ChessPiece* piece = getPiece(pos(row,col));
+            if (piece!= nullptr) {
+                total += piece->getValue();
+            }
+        }
+    }
+    return total;
+}
+

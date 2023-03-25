@@ -35,6 +35,7 @@ public:
     Color getToMove() const;
     bitboard getCombinedBoards(const Color &color) const;
     static Color swapColor(const Color &c);
+    double evaluate();
 private:
     void setStartingBoard();
     void setPinLaser();

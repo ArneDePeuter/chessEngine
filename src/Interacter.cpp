@@ -29,6 +29,8 @@ void Interacter::run() {
             break;
         } else if (input == "perft") {
             perft();
+        } else if (input == "best") {
+            best();
         }
     }
 }
@@ -50,4 +52,10 @@ void Interacter::perft() {
     int depth;
     std::cin >> depth;
     ai->perft(std::cout, depth);
+}
+
+void Interacter::best() {
+    int depth;
+    std::cin >> depth;
+    ai->getBestMove(depth);
 }
