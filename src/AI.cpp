@@ -1,4 +1,5 @@
 #include "AI.h"
+#include "chrono"
 
 AI::AI(Chess *c) : c(c) {}
 
@@ -41,6 +42,14 @@ void AI::perft(std::ostream &os, int depth, const int &initDepth) {
     if (depth==initDepth) {
         os << "Total positions: " << totalPerft << std::endl;
     }
+}
+
+void AI::perft(std::ostream &os, const int &depth) {
+    auto start = std::chrono::high_resolution_clock::now();
+    perft(os, depth, depth);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+    std::cout << "Duration: " << duration.count() << " seconds" << std::endl;
 }
 
 

@@ -7,6 +7,7 @@
 class AI {
 public:
     explicit AI(Chess *c);
+    void perft(std::ostream &os, const int &depth);
     void perft(std::ostream &os, int depth, const int &initDepth);
 private:
     Chess *c;

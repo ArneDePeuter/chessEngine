@@ -49,5 +49,5 @@ bool Interacter::move() {
 void Interacter::perft() {
     int depth;
     std::cin >> depth;
-    ai->perft(std::cout, depth, depth);
+    ai->perft(std::cout, depth);
 }
