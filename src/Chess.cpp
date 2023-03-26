@@ -2,7 +2,91 @@
 #include "Chess.h"
 #include "ChessStack.h"
 
-Chess::Chess(const std::string &FENstring) {}
+Chess::Chess(const std::string &FENstring) {
+    setFen(FENstring);
+    print(std::cout);
+}
+
+void Chess::setFen(const std::string &FENstring) {
+    bool pieceSelect = true;
+    bool toMoveSelect = true;
+    bool castleSelect = true;
+    bool enPassantSelect = true;
+    std::string EP="";
+    int row = 0;
+    int col = 0;
+    for (const char &c:FENstring) {
+        if (pieceSelect) {
+            char lowerC = tolower(c);
+            Color color = (lowerC==c) ? black : white;
+            switch (lowerC) {
+                case ' ':
+                    pieceSelect = false;
+                case '/':
+                    row++;
+                    col=0;
+                    break;
+                case 'r':
+                    BitboardHandler::add(bitboards[color][rook],row,col,true);
+                    col++;
+                    break;
+                case 'n':
+                    BitboardHandler::add(bitboards[color][knight],row,col,true);
+                    col++;
+                    break;
+                case 'p':
+                    BitboardHandler::add(bitboards[color][pawn],row,col,true);
+                    col++;
+                    break;
+                case 'k':
+                    BitboardHandler::add(bitboards[color][king],row,col,true);
+                    col++;
+                    break;
+                case 'b':
+                    BitboardHandler::add(bitboards[color][bishop],row,col,true);
+                    col++;
+                    break;
+                case 'q':
+                    BitboardHandler::add(bitboards[color][queen],row,col,true);
+                    col++;
+                    break;
+                default:
+                    col+=lowerC-'0';
+            }
+        } else if (toMoveSelect) {
+            if (c==' ') {
+                toMoveSelect = false;
+            } else {
+                toMove = (c=='b') ? black : white;
+            }
+        } else if (castleSelect) {
+            switch (c) {
+                case ' ':
+                    castleSelect = false;
+                    break;
+                case 'K':
+                    castleRights[wCastleK] = true;
+                    break;
+                case 'k':
+                    castleRights[bCastleK] = true;
+                    break;
+                case 'Q':
+                    castleRights[wCastleQ] = true;
+                    break;
+                case 'q':
+                    castleRights[bCastleQ] = true;
+                    break;
+            }
+        } else if (enPassantSelect) {
+            if (c==' ' || c== '-') {
+                enPassantSelect = false;
+            } else {
+                EP+=c;
+            }
+        }
+    }
+    std::cout << "ENPASSENT: " <<  EP;
+}
 
 Chess::Chess() {
     undostack = new ChessStack(this);
@@ -388,4 +472,6 @@ double Chess::evaluate() {
     }
     return total;
 }
+
+
 

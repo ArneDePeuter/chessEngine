@@ -4,9 +4,6 @@
 AI::AI(Chess *c) : c(c) {}
 
 void AI::perft(std::ostream &os, int depth, const int &initDepth) {
-    if (depth==initDepth) {
-        totalPerft = 0;
-    }
     if (depth<=0 || c->gameOver()) {
         perftCounter++;
         totalPerft++;
@@ -46,6 +43,8 @@ void AI::perft(std::ostream &os, int depth, const int &initDepth) {
 
 void AI::perft(std::ostream &os, const int &depth) {
     auto start = std::chrono::high_resolution_clock::now();
+    totalPerft = 0;
+    perftCounter = 0;
     perft(os, depth, depth);
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);

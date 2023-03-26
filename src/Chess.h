@@ -14,6 +14,7 @@ class Chess {
 public:
     Chess(const std::string &FENstring);
     Chess();
+    void setFen(const std::string &FENstring);
     bool move(const pos &from, const pos &to);
     void print(std::ostream &os) const;
     void swap();
