@@ -64,8 +64,8 @@ move AI::getBestMove(int depth) {
 
     std::cout << "Duration: " << duration.count() << " seconds" << std::endl;
     std::cout << "Simulated: " << simulatedPositions << " positions" << std::endl;
-    std::cout << "Best move: " << bestmove.first.first << " " << bestmove.first.second;
-    std::cout << "->" << bestmove.second.first << " " << bestmove.second.second << std::endl;
+    std::cout << "Best move: " << char('a'+bestmove.first.second) << char('8'-bestmove.first.first);
+    std::cout << " -> " << char('a'+bestmove.second.second) << char('8'-bestmove.second.first) << std::endl;
     std::cout << "Eval: " << eval << std::endl;
     return bestmove;
 }
