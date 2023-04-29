@@ -1,1 +1,1 @@
-# chessEngine
+# chessEngine (with AI) using bitboards
